@@ -1,0 +1,458 @@
+#include<stdlib.h>
+#include<stdio.h>
+
+void create();
+void display();
+void insert_begin();
+void insert_end();
+void insert_pos();
+void delete_begin();
+void delete_end();
+void delete_pos();
+void reverseList();
+
+struct node
+{
+        int info;
+        struct node *next;
+};
+
+struct node *start=NULL;
+int main()      
+{
+        int choice;
+        while(1){
+                printf("\n ************ MENU ************* \n");
+                printf("\n 1.Create \t");
+                printf("\n 2.Display \t");
+                printf("\n 3.Insert at Start         ");
+                printf("4.Insert at End         ");
+                printf("5.Insert at Position");
+                printf("\n 6.Delete from start       ");
+                printf("7.Delete from End       ");
+                printf("8.Delete from a Position      ");
+		     printf("9.Reverse Links ^_^ ");
+                printf("\n 10.Exit        \n");
+                printf("\n ************ MENU ************* \n");
+                printf("Enter your choice:\t");
+                scanf("%d",&choice);
+                switch(choice)
+                {
+                        case 1:
+                             create();         break;
+                        case 2:
+                             display();        break;
+                        case 3: 
+                             insert_begin();   break;
+                        case 4:
+                             insert_end();     break;
+                        case 5:
+                             insert_pos();     break;
+                        case 6:
+                             delete_begin();   break;
+                        case 7:
+                             delete_end();     break;
+                        case 8:
+                             delete_pos();     break;
+			case 9:
+			     reverseList();    break;
+                        case 10:
+                             exit(0);          break;
+                }
+        }
+        return 0;
+}
+
+void create()
+{
+        struct node *temp,*ptr;
+        temp=(struct node *)malloc(sizeof(struct node));
+        if(temp==NULL)
+        {
+                printf("\nOut of Memory Space:\n");
+                exit(0);
+        }
+        printf("\nEnter the data value for the node:\t");
+        scanf("%d",&temp->info);
+        temp->next=NULL;
+        if(start==NULL)
+        {
+                start=temp;
+        }
+        else
+        {
+                ptr=start;
+                while(ptr->next!=NULL)
+                {
+                        ptr=ptr->next;
+                }
+                ptr->next=temp;
+        }
+}
+
+void display()
+{
+        struct node *ptr;
+        if(start==NULL)
+        {
+                printf("\nList is empty:\n");
+                return;
+        }
+        else
+        {
+                ptr=start;
+                printf("\nThe List elements are:\n");
+                while(ptr!=NULL)
+                {
+                        printf("%d\t",ptr->info );
+                        ptr=ptr->next ;
+                }
+        }
+}
+
+void insert_begin()
+{
+        struct node *temp;
+        temp=(struct node *)malloc(sizeof(struct node));
+        if(temp==NULL)
+        {
+                printf("\nOut of Memory Space:\n");
+                return;
+        }
+        printf("\nEnter the data value for the node:\t" );
+        scanf("%d",&temp->info);
+        temp->next =NULL;
+        if(start==NULL)
+        {
+                start=temp;
+        }
+        else
+        {
+                temp->next=start;
+                start=temp;
+        }
+}
+
+void insert_end()
+{
+        struct node *temp,*ptr;
+        temp=(struct node *)malloc(sizeof(struct node));
+        if(temp==NULL)
+        {
+                printf("\nOut of Memory Space:\n");
+                return;
+        }
+        printf("\nEnter the data value for the node:\t" );
+        scanf("%d",&temp->info );
+        temp->next =NULL;
+        if(start==NULL)
+        {
+                start=temp;
+        }
+        else
+        {
+                ptr=start;
+                while(ptr->next !=NULL)
+                {
+                        ptr=ptr->next ;
+                }
+                ptr->next =temp;
+        }
+}
+
+void insert_pos()
+{
+        struct node *ptr,*temp;
+        int i,pos;
+        temp=(struct node *)malloc(sizeof(struct node));
+        if(temp==NULL)
+        {
+                printf("\nOut of Memory Space:\n");
+                return;
+        }
+        printf("\nEnter the position for the new node to be inserted:\t");
+        scanf("%d",&pos);
+        printf("\nEnter the data value of the node:\t");
+        scanf("%d",&temp->info) ;
+        temp->next=NULL;
+        if(pos==0)
+        {
+                temp->next=start;
+                start=temp;
+        }
+        else
+        {
+                for(i=0,ptr=start;i<pos-1;i++)
+                {
+                        ptr=ptr->next;
+                        if(ptr==NULL)
+                        {
+                                printf("\nPosition not found :(\n");
+                                return;
+                        }
+                }
+                temp->next =ptr->next ;
+                ptr->next=temp;
+        }
+}
+
+void delete_begin()
+{
+        struct node *ptr;
+        if(ptr==NULL)
+        {
+                printf("\nList is Empty:\n");
+                return;
+        }
+        else
+        {
+                ptr=start;
+                start=start->next ;
+                printf("\nThe deleted element is :%d\t",ptr->info);
+                free(ptr);
+        }
+}
+
+void delete_end()
+{
+        struct node *temp,*ptr;
+        if(start==NULL)
+        {
+                printf("\nList is Empty:");
+                exit(0);
+        }
+        else if(start->next ==NULL)
+        {
+                ptr=start;
+                start=NULL;
+                printf("\nThe deleted element is:%d\t",ptr->info);
+                free(ptr);
+        }
+        else
+        {
+                ptr=start;
+                while(ptr->next!=NULL)
+                {
+                        temp=ptr;
+                        ptr=ptr->next;
+                }
+                temp->next=NULL;
+                printf("\nThe deleted element is:%d\t",ptr->info);
+                free(ptr);
+        }
+}
+
+void delete_pos()
+{
+        int i,pos;
+        struct node *temp,*ptr;
+        if(start==NULL)
+        {
+                printf("\nThe List is Empty:\n");
+                exit(0);
+        }
+        else
+        {
+                printf("\nEnter the position of the node to be deleted:\t");
+                scanf("%d",&pos);
+                if(pos==0)
+                {
+                        ptr=start;
+                        start=start->next ;
+                        printf("\nThe deleted element is:%d\t",ptr->info);
+                        free(ptr);
+                }
+                else
+                {
+                        ptr=start;
+                        for(i=0;i<pos;i++)
+                        {
+                                temp=ptr;
+                                ptr=ptr->next ;
+                                if(ptr==NULL)
+                                {
+                                        printf("\nPosition not Found:\n");
+                                        return;
+                                }
+                        }
+                        temp->next =ptr->next ;
+                        printf("\nThe deleted element is:%d\t",ptr->info );
+                        free(ptr);
+                }
+        }
+}
+
+void reverseList()
+{   
+	struct node *current, *prev, *next;
+	current=start;
+	prev=NULL;
+	while(current!=NULL)
+	{
+		next=current->next;
+		current->next=prev;
+		prev=current;
+		current=next;
+	}
+	start=prev;
+}
+
+
+/* ################## OUTPUT #################
+
+ ************ MENU ************* 
+
+ 1.Create 	
+ 2.Display 	
+ 3.Insert at Start         4.Insert at End         5.Insert at Position
+ 6.Delete from start       7.Delete from End       8.Delete from a Position      9.Reverse Links ^_^ 
+ 10.Exit        
+
+ ************ MENU *************  (CREATION) 
+ Enter your choice:	1
+
+ Enter the data value for the node:	26
+
+ ************ MENU ************* 
+
+ 1.Create 	
+ 2.Display 	
+ 3.Insert at Start         4.Insert at End         5.Insert at Position
+ 6.Delete from start       7.Delete from End       8.Delete from a Position      9.Reverse Links ^_^ 
+ 10.Exit        
+
+ ************ MENU *************  (INSERTION AT BEGINING) 
+ Enter your choice:	3
+
+ Enter the data value for the node:	40
+
+ ************ MENU ************* 
+
+ 1.Create 	
+ 2.Display 	
+ 3.Insert at Start         4.Insert at End         5.Insert at Position
+ 6.Delete from start       7.Delete from End       8.Delete from a Position      9.Reverse Links ^_^ 
+ 10.Exit        
+
+ ************ MENU *************  (INSERTION AT END)  
+ Enter your choice:	4
+
+ Enter the data value for the node:	68
+	
+ ************ MENU ************* 
+
+ 1.Create 	
+ 2.Display 	
+ 3.Insert at Start         4.Insert at End         5.Insert at Position
+ 6.Delete from start       7.Delete from End       8.Delete from a Position      9.Reverse Links ^_^ 
+ 10.Exit        
+
+ ************ MENU *************  (INSERTION AT A POSITION)
+ Enter your choice:	5
+
+ Enter the position for the new node to be inserted:	1
+
+ Enter the data value of the node:	97
+
+ ************ MENU ************* 
+
+ 1.Create 	
+ 2.Display 	
+ 3.Insert at Start         4.Insert at End         5.Insert at Position
+ 6.Delete from start       7.Delete from End       8.Delete from a Position      9.Reverse Links ^_^ 
+ 10.Exit        
+
+ ************ MENU *************  (DISPLAY INSERTION PROFF)
+ Enter your choice:	2
+
+ The List elements are:
+ 40	 97	 26	 68
+
+ ************ MENU ************* 
+
+ 1.Create 	
+ 2.Display 	
+ 3.Insert at Start         4.Insert at End         5.Insert at Position
+ 6.Delete from start       7.Delete from End       8.Delete from a Position      9.Reverse Links ^_^ 
+ 10.Exit        
+
+ ************ MENU *************  (REVERSING)
+ Enter your choice:	9
+
+ ************ MENU ************* 
+
+ 1.Create 	
+ 2.Display 	
+ 3.Insert at Start         4.Insert at End         5.Insert at Position
+ 6.Delete from start       7.Delete from End       8.Delete from a Position      9.Reverse Links ^_^ 
+ 10.Exit        
+
+ ************ MENU *************  (DISPLAY REVERSED LIST) 
+ Enter your choice:	2
+
+ The List elements are:
+ 68	 26	 97	 40	
+ ************ MENU ************* 
+
+ 1.Create 	
+ 2.Display 	
+ 3.Insert at Start         4.Insert at End         5.Insert at Position
+ 6.Delete from start       7.Delete from End       8.Delete from a Position      9.Reverse Links ^_^ 
+ 10.Exit        
+
+ ************ MENU *************  (DELETION AT BEGINING)
+ Enter your choice:	6
+
+ The deleted element is :68	
+ ************ MENU ************* 
+
+ 1.Create 	
+ 2.Display 	
+ 3.Insert at Start         4.Insert at End         5.Insert at Position
+ 6.Delete from start       7.Delete from End       8.Delete from a Position      9.Reverse Links ^_^ 
+ 10.Exit        
+
+ ************ MENU *************  (DELETION AT END)
+ Enter your choice:	7
+
+ The deleted element is:40	
+
+ ************ MENU ************* 
+
+ 1.Create 	
+ 2.Display 	
+ 3.Insert at Start         4.Insert at End         5.Insert at Position
+ 6.Delete from start       7.Delete from End       8.Delete from a Position      9.Reverse Links ^_^ 
+ 10.Exit        
+
+ ************ MENU *************  (DELETION AT A POSITION)
+ Enter your choice:	8 
+
+ Enter the position of the node to be deleted:	1
+
+ The deleted element is:97	
+ ************ MENU ************* 
+
+ 1.Create 	
+ 2.Display 	
+ 3.Insert at Start         4.Insert at End         5.Insert at Position
+ 6.Delete from start       7.Delete from End       8.Delete from a Position      9.Reverse Links ^_^ 
+ 10.Exit        
+
+ ************ MENU *************  (DISPLAY DELETION PROOF)
+ Enter your choice:	2
+
+ The List elements are:
+ 26	
+ ************ MENU ************* 
+
+ 1.Create 	
+ 2.Display 	
+ 3.Insert at Start         4.Insert at End         5.Insert at Position
+ 6.Delete from start       7.Delete from End       8.Delete from a Position      9.Reverse Links ^_^ 
+ 10.Exit        
+
+ ************ MENU ************* (EXIT)
+ Enter your choice:	10
+
+ ################## OUTPUT ################# */
