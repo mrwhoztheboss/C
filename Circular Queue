@@ -1,0 +1,127 @@
+#include<stdio.h>
+#include<ctype.h>
+#define MAX 4
+int cq[MAX];
+int rear=-1, front=-1;
+
+insert()
+{
+	int add;
+	if((rear+1)%MAX==front)
+		printf("Q OverFlow\n");
+	else
+	{
+		if(front==-1)
+		front=0;
+		printf("Insert an Element : ");
+		scanf("%d",&add);
+		rear=(rear+1)%MAX;
+		cq[rear]=add;
+	}
+}
+
+delete()
+{
+	int element;
+	if(front==-1)
+	{	
+		printf("Q Empty");
+		return -1;
+	}
+	else
+	{
+		element=cq[front];
+		if(front==rear)
+			front=rear=-1;
+		else
+		{
+			front=(front+1)%MAX;
+			printf("Deleted Element IS : %d ",element);
+		}
+	}	
+}
+
+display()
+{
+	int i,j;
+	if(front==-1 && rear==-1)
+	{
+		printf("Q Empty\n");
+		return 1;
+	}
+	if(front>rear)
+	{
+		for(i=0;i<=rear;i++)
+			printf("\t%d",cq[i]);
+		for(j=front;j<=MAX-1;j++)
+			printf("\t%d",cq[j]);
+		printf("\nRear IS At : %d\n",cq[rear]);
+		printf("\nFront IS At : %d\n",cq[front]);
+	}
+	else
+	{
+        	for(i=front;i<=rear;i++)
+        	{
+            		printf("\t%d",cq[i]);
+        	}
+        	printf("\nRear IS At %d\n",cq[rear]);
+        	printf("\nFront IS At %d\n",cq[front]);
+    	}
+}
+
+void main()
+{
+	int x;
+	printf("********** MENU ***********\n");
+	do
+	{	printf("Enter Your Choice As : 1.EnQueue  2.DeQueue  3.Display  4.Exit :  ");
+	scanf("%d",&x);
+	switch(x)
+	{
+		case 1: insert();
+			break;
+		case 2: delete();
+			break;
+		case 3: display();
+			break;
+		case 4: goto end;
+	}
+	}while(1);
+	end: printf("?! Thank You ?!\n");
+}
+
+/************************ OUTPUT **************************
+
+student@comp026-ThinkCentre-M70e:~/Desktop/mprog$ gcc cq.c
+student@comp026-ThinkCentre-M70e:~/Desktop/mprog$ ./a.out
+********** MENU ***********
+Enter Your Choice As : 1.EnQueue  2.DeQueue  3.Display  4.Exit :  1
+Insert an Element : 22
+Enter Your Choice As : 1.EnQueue  2.DeQueue  3.Display  4.Exit :  1
+Insert an Element : 36
+Enter Your Choice As : 1.EnQueue  2.DeQueue  3.Display  4.Exit :  1
+Insert an Element : 89
+Enter Your Choice As : 1.EnQueue  2.DeQueue  3.Display  4.Exit :  1
+Insert an Element : 73
+Enter Your Choice As : 1.EnQueue  2.DeQueue  3.Display  4.Exit :  3
+	22	36	89	73
+Rear IS At 73
+
+Front IS At 22
+Enter Your Choice As : 1.EnQueue  2.DeQueue  3.Display  4.Exit :  2
+Deleted Element IS : 22 
+Enter Your Choice As : 1.EnQueue  2.DeQueue  3.Display  4.Exit :  1
+Insert an Element : 55
+Enter Your Choice As : 1.EnQueue  2.DeQueue  3.Display  4.Exit :  3
+	55	36	89	73
+Rear IS At : 55
+
+Front IS At : 36
+Enter Your Choice As : 1.EnQueue  2.DeQueue  3.Display  4.Exit :  4
+?! Thank You ?!
+student@comp026-ThinkCentre-M70e:~/Desktop/mprog$ 
+
+************************ OUTPUT **************************/
+
+
+
