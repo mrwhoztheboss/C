@@ -1,0 +1,238 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct Node
+{
+	int data;
+	struct Node *left;
+	struct Node *right;
+};
+
+struct Node*FindMin(struct Node*root)
+{
+	while(root->left!=NULL)
+	root=root->left;
+	return root;
+}
+
+struct Node*Delete(struct Node*root,int data)
+{
+	if(root==NULL)
+	return root;
+
+	else if(data<root->data)
+	root->left=Delete(root->left,data);
+
+	else if(data>root->data)
+	root->right=Delete(root->right,data);
+
+// Element Is Found Now Processing For Further Deletion
+
+	else
+	{
+		
+	// For NO Child Condition
+		if(root->left==NULL && root->right==NULL)
+		{
+			free(root);
+			root=NULL;
+		}
+
+	// For One Child Condition
+		else if(root->left==NULL)
+		{
+			struct Node*temp=root;
+			root=root->right;
+			free(temp);
+		}	
+		
+		else if(root->right==NULL)
+		{
+			struct Node*temp=root;
+			root=root->left;
+			free(temp);
+		}
+
+	// Condition For 2 Children's
+		else
+		{
+			struct Node*temp=FindMin(root->right);
+			root->data=temp->data;
+			root->right=Delete(root->right,temp->data);
+		}
+	}
+	return root;
+}
+
+// For Visiting Nodes In-Order
+
+void Inorder(struct Node*root)
+{
+	if(root==NULL)
+	return;
+	Inorder(root->left);
+	printf("%d ",root->data);
+	Inorder(root->right);
+}
+
+// For Inserting Node In BST
+
+struct Node*Insert(struct Node*root,char data)
+{
+	if(root==NULL)
+	{
+		root=(struct Node*)malloc(sizeof(struct Node*));
+		root->data=data;
+		root->left=root->right=NULL;
+	}
+	
+	else if(data<=root->data)
+	   root->left=Insert(root->left,data);
+	else
+	   root->right=Insert(root->right,data);
+	return root;
+}
+
+int Search(struct Node*root,int data)
+{
+	if(root==NULL)
+	return 0;
+		
+	else if(root->data==data)
+	return 1;
+
+	else if(data<=root->data)
+	return Search(root->left,data);
+
+	else 
+	return Search(root->right,data);
+}
+
+int main()
+{
+	struct Node*root=NULL;
+	int a,d,choice;
+	do
+	{
+		printf("\n ********** MENU ********** \n");
+		printf(" 1.INSERT     2.DELETE \n 3.DISPLAY    4.SEARCH \n 5.EXIT \n");
+		printf(" Enter Your Choice => ");
+		scanf("%d",&choice);
+		switch(choice)
+		{
+			case 1:
+			printf("Enter A Number TO Insert => ");
+			scanf("%d",&d);
+			root=Insert(root,d);
+			break;
+
+			case 2:
+			printf("Enter A Number TO Delete => ");
+			scanf("%d",&d);
+			root=Delete(root,d);
+			break;
+
+			case 3:
+			printf("In-Order : ");
+			Inorder(root);
+			printf("\n");
+			break;
+
+			case 4: // Searching ...
+			printf("Enter A Number To Search => ");
+			scanf("%d",&d);
+			if(Search(root,d)==1)
+			printf("Found Number : %d",d);
+			else
+			printf("Number Not Found : %d",d);
+			break;
+
+			case 5: return(0);
+		}
+	}
+	while(choice!=5);
+	return(0);
+}
+
+
+/* ############ OUTPUT ############
+
+ ********** MENU ********** 
+ 1.INSERT     2.DELETE 
+ 3.DISPLAY    4.SEARCH 
+ 5.EXIT 
+ Enter Your Choice => 1
+Enter A Number TO Insert => 10
+
+ ********** MENU ********** 
+ 1.INSERT     2.DELETE 
+ 3.DISPLAY    4.SEARCH 
+ 5.EXIT 
+ Enter Your Choice => 1
+Enter A Number TO Insert => 50
+
+ ********** MENU ********** 
+ 1.INSERT     2.DELETE 
+ 3.DISPLAY    4.SEARCH 
+ 5.EXIT 
+ Enter Your Choice => 1
+Enter A Number TO Insert => 30
+
+ ********** MENU ********** 
+ 1.INSERT     2.DELETE 
+ 3.DISPLAY    4.SEARCH 
+ 5.EXIT 
+ Enter Your Choice => 1
+Enter A Number TO Insert => 80
+
+ ********** MENU ********** 
+ 1.INSERT     2.DELETE 
+ 3.DISPLAY    4.SEARCH 
+ 5.EXIT 
+ Enter Your Choice => 1
+Enter A Number TO Insert => 70
+
+ ********** MENU ********** 
+ 1.INSERT     2.DELETE 
+ 3.DISPLAY    4.SEARCH 
+ 5.EXIT 
+ Enter Your Choice => 3
+In-Order : 10 30 50 70 80 
+
+ ********** MENU ********** 
+ 1.INSERT     2.DELETE 
+ 3.DISPLAY    4.SEARCH 
+ 5.EXIT 
+ Enter Your Choice => 2
+Enter A Number TO Delete => 70
+
+ ********** MENU ********** 
+ 1.INSERT     2.DELETE 
+ 3.DISPLAY    4.SEARCH 
+ 5.EXIT 
+ Enter Your Choice => 3
+In-Order : 10 30 50 80 
+
+ ********** MENU ********** 
+ 1.INSERT     2.DELETE 
+ 3.DISPLAY    4.SEARCH 
+ 5.EXIT 
+ Enter Your Choice => 4
+Enter A Number To Search => 70
+Number Not Found : 70
+
+ ********** MENU ********** 
+ 1.INSERT     2.DELETE 
+ 3.DISPLAY    4.SEARCH 
+ 5.EXIT 
+ Enter Your Choice => 4
+Enter A Number To Search => 30
+Found Number : 30
+
+ ********** MENU ********** 
+ 1.INSERT     2.DELETE 
+ 3.DISPLAY    4.SEARCH 
+ 5.EXIT 
+ Enter Your Choice => 5
+
+############ OUTPUT ############ */
