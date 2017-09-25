@@ -1,0 +1,78 @@
+#include <stdio.h>
+void sortasc(int,int,int data[]);
+void sortdesc(int,int,int data[]);
+int main()
+ {
+    int data[100],i,n,val;
+    printf("Enter the number of elements to be sorted: ");
+    scanf("%d",&n);
+    for(i=0;i<n;++i)
+      {
+       printf("%d. Enter element: ",i+1);
+       scanf("%d",&data[i]);
+    }
+    printf("How Do You Want TO Sort Press 1.Ascending OR 2.Descending => ");
+    scanf("%d",&val);
+    switch(val)
+    {
+	case 1: sortasc(n,i,data);
+		break;
+	case 2: sortdesc(n,i,data);
+		break;
+    }
+  }
+
+void sortasc(int n,int i,int data[])
+{	int m,temp;
+	for(m=0;m<n;++m)
+    for(i=m+1;i<n;++i)
+     {
+         if(data[m]>data[i])  
+          {
+             temp=data[m];
+             data[m]=data[i]; 
+             data[i]=temp;
+         }
+    }
+    printf("In ascending order: ");
+    for(i=0;i<n;++i)
+        printf("%d  ",data[i]);
+}
+
+void sortdesc(int n,int i,int data[])
+{	int m,temp;
+	for(m=0;m<n;++m)
+    for(i=m+1;i<n;++i)
+     {
+         if(data[m]<data[i])  
+          {
+             temp=data[m];
+             data[m]=data[i]; 
+             data[i]=temp;
+         }
+    }
+    printf("In descending order: ");
+    for(i=0;i<n;++i)
+        printf("%d  ",data[i]);
+}
+
+
+/* ############## OUTPUT ##############
+
+Enter the number of elements to be sorted: 4
+1. Enter element: 20
+2. Enter element: 10
+3. Enter element: 60
+4. Enter element: -70
+How Do You Want TO Sort Press 1.Ascending OR 2.Descending => 1
+In ascending order: -70  10  20  60
+
+Enter the number of elements to be sorted: 4
+1. Enter element: -1000
+2. Enter element: 50
+3. Enter element: 10
+4. Enter element: 68
+How Do You Want TO Sort Press 1.Ascending OR 2.Descending => 2
+In descending order: 68  50  10  -1000
+
+ ############## OUTPUT ############## */
