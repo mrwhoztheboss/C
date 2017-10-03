@@ -1,0 +1,283 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+int data;
+struct node *next;
+};
+struct node *head1=NULL;
+struct node *head2=NULL;
+void insert(int x)
+{
+int d=1,value;
+if(x==1)
+{
+while(d!=0)
+{
+printf("enter a value : ");
+scanf("%d",&value);
+struct node *newnode;
+newnode=(struct node*)malloc(sizeof(struct node));
+newnode->data=value;
+if(head1==NULL)
+{
+newnode->next=NULL;
+head1=newnode;
+}
+else
+{
+newnode->next=head1;
+head1=newnode;
+}
+printf("Do you want to continue(Type 0 or 1)? : ");
+scanf("%d", &d);
+}
+}
+else
+{
+while(d!=0)
+{
+printf("enter a value : ");
+scanf("%d",&value);
+struct node *newnode;
+newnode=(struct node*)malloc(sizeof(struct node));
+newnode->data=value;
+if(head2==NULL)
+{
+newnode->next=NULL;
+head2=newnode;
+}
+else
+{
+newnode->next=head2;
+head2=newnode;
+}
+printf("Do you want to continue(Type 0 or 1)? : ");
+scanf("%d", &d);
+}
+}
+}
+void reverse()
+{
+struct node *temp,*temp1,*temp2;
+temp=head1;
+temp2=NULL;
+while(temp!=NULL)
+{
+temp1=temp2;
+temp2=temp;
+temp=temp->next;
+temp2->next=temp1;
+}
+head1=temp2;
+}
+void count()
+{
+struct node *temp=head1;
+int a=0;
+while(temp!=NULL)
+{
+a++;
+temp=temp->next;
+}
+printf("number of nodes : %d",a);
+}
+void search(int num)
+{
+struct node *temp=head1;
+int a=1;
+while(temp!=NULL)
+{
+if(temp->data==num)
+{
+break;
+}
+else
+{
+a++;
+temp=temp->next;
+}
+}
+printf("entered value is at : %d",a);
+}
+void display(int x)
+{
+if(x==1)
+{
+if(head1==NULL)
+{
+printf("List 1 is empty");
+}
+else
+{
+struct node *temp=head1;
+printf("list 1 : ");
+while(temp->next!=NULL)
+{
+printf("%d  ",temp->data);
+temp=temp->next;
+}
+printf("%d  ",temp->data);
+}
+}
+else
+{
+if(head2==NULL)
+{
+printf("List 2 is empty");
+}
+else
+{
+struct node *temp=head2;
+printf("List 2 : ");
+while(temp->next!=NULL)
+{
+printf("%d  ",temp->data);
+temp=temp->next;
+}
+printf("%d  ",temp->data);
+}
+}
+}
+void concat()
+{
+struct node *temp1,*temp2;
+temp1=head1;
+temp2=head2;
+if(temp1==NULL)
+{
+temp1=temp2;
+}
+else
+{
+while(temp1->next!=NULL)
+{
+temp1=temp1->next;
+}
+temp1->next=temp2;
+} 
+}
+void main()
+{
+int choice,choice2,choice3,c;
+do
+{
+printf("\n1. insert    2. display   3.reverse 4.count  5.search  6.concat  7.exit");
+printf("\nenter your choice : ");
+scanf("%d",&choice);
+switch(choice)
+{
+case 1 :
+printf("1. insert into list 1\n2. insert into list 2\n");
+printf("enter your choice : ");
+scanf("%d",&choice2);
+insert(choice2);
+break;
+case 2:
+printf("1. display list 1\n2. display list 2\n");
+printf("enter your choice : ");
+scanf("%d",&choice3);
+display(choice3);
+break;
+case 3: reverse();
+break;
+case 4: count();
+break;
+case 5 :printf("enter value : ");
+scanf("%d",&c);
+search(c);
+break;
+case 6 :concat(head1,head2);
+break;
+case 7:"exit";
+break;
+default: 
+printf("invalid choice");
+break;
+}
+}while(choice!=7);
+}
+
+
+******************** OUTPUT  *******************
+
+1. insert    2. display   3.reverse 4.count  5.search  6.concat  7.exit
+enter your choice : 1
+1. insert into list 1
+2. insert into list 2
+enter your choice : 1
+enter a value : 1
+Do you want to continue(Type 0 or 1)? : 1
+enter a value : 2
+Do you want to continue(Type 0 or 1)? : 1
+enter a value : 3
+Do you want to continue(Type 0 or 1)? : 1
+enter a value : 5
+Do you want to continue(Type 0 or 1)? : 1
+enter a value : 4
+Do you want to continue(Type 0 or 1)? : 0
+
+1. insert    2. display   3.reverse 4.count  5.search  6.concat  7.exit
+enter your choice : 1
+1. insert into list 1
+2. insert into list 2
+enter your choice : 2
+enter a value : 6
+Do you want to continue(Type 0 or 1)? : 1
+enter a value : 7
+Do you want to continue(Type 0 or 1)? : 1
+enter a value : 8
+Do you want to continue(Type 0 or 1)? : 1
+enter a value : 9
+Do you want to continue(Type 0 or 1)? : 1
+enter a value : 10
+Do you want to continue(Type 0 or 1)? : 0
+
+1. insert    2. display   3.reverse 4.count  5.search  6.concat  7.exit
+enter your choice : 2
+1. display list 1
+2. display list 2
+enter your choice : 1
+list 1 : 4  5  3  2  1  
+
+1. insert    2. display   3.reverse 4.count  5.search  6.concat  7.exit
+enter your choice : 2
+1. display list 1
+2. display list 2
+enter your choice : 2
+List 2 : 10  9  8  7  6  
+
+1. insert    2. display   3.reverse 4.count  5.search  6.concat  7.exit
+enter your choice : 3
+
+1. insert    2. display   3.reverse 4.count  5.search  6.concat  7.exit
+enter your choice : 2
+1. display list 1
+2. display list 2
+enter your choice : 1
+list 1 : 1  2  3  5  4  
+
+1. insert    2. display   3.reverse 4.count  5.search  6.concat  7.exit
+enter your choice : 4
+number of nodes : 5
+
+1. insert    2. display   3.reverse 4.count  5.search  6.concat  7.exit
+enter your choice : 5
+enter value : 5
+entered value is at : 4
+1. insert    2. display   3.reverse 4.count  5.search  6.concat  7.exit
+enter your choice : 6
+
+1. insert    2. display   3.reverse 4.count  5.search  6.concat  7.exit
+enter your choice : 2
+1. display list 1
+2. display list 2
+enter your choice : 1
+list 1 : 1  2  3  5  4  10  9  8  7  6  
+
+1. insert    2. display   3.reverse 4.count  5.search  6.concat  7.exit
+enter your choice : 7
+
+******************** OUTPUT  *******************
+
+
