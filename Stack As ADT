@@ -1,0 +1,138 @@
+#include<stdio.h>
+#define MAX 5
+int a[MAX];
+int top=-1;
+void push(int x)
+{
+  if(top==MAX-1)
+   {
+     printf("stack is full\n");
+     return;
+   }
+  top++;
+  a[top]=x;
+}
+void pop()
+{
+  if(top==-1)
+   {
+    printf("stack is empty\n");
+    return;
+   }
+  top--;
+}
+void top1()
+   {
+if(top==-1)
+{
+printf("stack empty\n");
+}
+else
+{
+printf("%d ",a[top]);
+}
+printf("\n");
+}
+void print()
+{
+int i;
+for(i=0;i<=top;i++)
+{
+printf("%d ",a[i]);
+}
+printf("\n");
+}
+int main()
+{
+   int i,n;
+   do
+    {
+     printf("1: push\n2: pop\n3: top\n4: print\n5: exit");
+     scanf("%d",&n);
+     switch(n)
+      {
+        case 1: printf("enter no. ");
+	scanf("%d",&i);
+	push(i);
+	break;
+	case 2:
+	pop();
+	break;
+	case 3:
+	top1();
+	break;
+	case 4:
+	print();
+	case 5:"exit";
+	break;
+	default:printf(" invalid choice\n");
+	break;
+      }
+   }while(n!=5);
+}
+
+
+
+
+********Output*********
+
+1: push
+2: pop
+3: top
+4: print
+5: exit 1
+enter no. 1
+1: push
+2: pop
+3: top
+4: print
+5: exit 1
+enter no. 2
+1: push
+2: pop
+3: top
+4: print
+5: exit 1
+enter no. 3
+1: push
+2: pop
+3: top
+4: print
+5: exit 1
+enter no. 4
+1: push
+2: pop
+3: top
+4: print
+5: exit 4
+1 2 3 4 
+1: push
+2: pop
+3: top
+4: print
+5: exit 2
+1: push
+2: pop
+3: top
+4: print
+5: exit 4
+1 2 3 
+1: push
+2: pop
+3: top
+4: print
+5: exit 3
+3 
+1: push
+2: pop
+3: top
+4: print
+5: exit 4
+1 2 3 
+1: push
+2: pop
+3: top
+4: print
+5: exit 5
+
+*********** OUTPUT ************
