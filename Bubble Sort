@@ -1,7 +1,7 @@
 #include <stdio.h>
 void sortasc(int,int,int data[]);
 void sortdesc(int,int,int data[]);
-int main()
+int main() 
  {
     int data[100],i,n,val;
     printf("Enter the number of elements to be sorted: ");
