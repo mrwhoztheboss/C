@@ -24,8 +24,8 @@ int main()
 
 void sortasc(int n,int i,int data[])
 {	int m,temp;
-	for(m=0;m<n;++m)
-    for(i=m+1;i<n;++i)
+	for(m=0;m<n-1;++m)
+    for(i=0;i<n-m-1;++i)
      {
          if(data[m]>data[i])  
           {
@@ -41,8 +41,8 @@ void sortasc(int n,int i,int data[])
 
 void sortdesc(int n,int i,int data[])
 {	int m,temp;
-	for(m=0;m<n;++m)
-    for(i=m+1;i<n;++i)
+	for(m=0;m<n-1;++m)
+    for(i=0;i<n-m-1;++i)
      {
          if(data[m]<data[i])  
           {
